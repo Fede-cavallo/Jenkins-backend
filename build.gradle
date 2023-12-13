@@ -1,0 +1,37 @@
+plugins {
+    id "org.jetbrains.kotlin.jvm" version "1.7.21"
+    id 'com.github.johnrengelman.shadow' version "7.1.2"
+    id 'com.gorylenko.gradle-git-properties' version "2.4.1"
+}
+
+repositories {
+    maven { url = uri("https://ukgartifactory.pe.jfrog.io/artifactory/maven/") }
+    maven { url = uri("https://ukgartifactory.pe.jfrog.io/artifactory/gt-maven-libs-release/") }
+    maven { url = uri("https://ukgartifactory.pe.jfrog.io/artifactory/cmp-maven-libs-release/") }
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+    kotlinOptions {
+        apiVersion = "1.7"
+        languageVersion = "1.7"
+        jvmTarget = "11"
+    }
+}
+
+version = "0.1.0"
+
+dependencies {
+
+}
+
+jar {
+    manifest {
+        attributes("Main-Class": "com.ukg.jenkinsbackend.MainKt")
+    }
+}
+
+
+test {
+    useJUnitPlatform()
+    testLogging.exceptionFormat "full"
+}
